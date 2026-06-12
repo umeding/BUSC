@@ -1,0 +1,542 @@
+{
+  "version": 1,
+  "netlist": "/u0/uwe/BU/BUSC/dimmer/dimmer.net",
+  "board": {
+    "layout": "half"
+  },
+  "terminals": {
+    "GND": "GND",
+    "V1": "+5V"
+  },
+  "placements": [
+    {
+      "ref": "U1",
+      "type_id": "DIP8",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            8,
+            "f"
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            9,
+            "f"
+          ]
+        ],
+        [
+          3,
+          [
+            "tie",
+            10,
+            "f"
+          ]
+        ],
+        [
+          4,
+          [
+            "tie",
+            11,
+            "f"
+          ]
+        ],
+        [
+          5,
+          [
+            "tie",
+            11,
+            "e"
+          ]
+        ],
+        [
+          6,
+          [
+            "tie",
+            10,
+            "e"
+          ]
+        ],
+        [
+          7,
+          [
+            "tie",
+            9,
+            "e"
+          ]
+        ],
+        [
+          8,
+          [
+            "tie",
+            8,
+            "e"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "RV1",
+      "type_id": "POT",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            2,
+            "a"
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            3,
+            "a"
+          ]
+        ],
+        [
+          3,
+          [
+            "tie",
+            4,
+            "a"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "D1",
+      "type_id": "D",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            4,
+            "c"
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            9,
+            "c"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "D2",
+      "type_id": "D",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            9,
+            "d"
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            2,
+            "d"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "R2",
+      "type_id": "R",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "rail",
+            "top_plus",
+            7
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            9,
+            "b"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "R1",
+      "type_id": "R",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            10,
+            "g"
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            15,
+            "g"
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "D3",
+      "type_id": "LED",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "rail",
+            "bot_minus",
+            12
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            15,
+            "j"
+          ]
+        ]
+      ],
+      "led_color": "#e84040"
+    },
+    {
+      "ref": "C2",
+      "type_id": "C",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            11,
+            "a"
+          ]
+        ],
+        [
+          2,
+          [
+            "rail",
+            "top_minus",
+            9
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "C1",
+      "type_id": "C",
+      "flipped": 0,
+      "pins": [
+        [
+          1,
+          [
+            "tie",
+            3,
+            "j"
+          ]
+        ],
+        [
+          2,
+          [
+            "rail",
+            "bot_minus",
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "ref": "D4",
+      "type_id": "LED",
+      "flipped": false,
+      "pins": [
+        [
+          1,
+          [
+            "rail",
+            "bot_minus",
+            17
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            21,
+            "j"
+          ]
+        ]
+      ],
+      "led_color": "#e84040"
+    },
+    {
+      "ref": "R3",
+      "type_id": "R",
+      "flipped": false,
+      "pins": [
+        [
+          1,
+          [
+            "rail",
+            "top_plus",
+            17
+          ]
+        ],
+        [
+          2,
+          [
+            "tie",
+            21,
+            "f"
+          ]
+        ]
+      ]
+    }
+  ],
+  "wires": [
+    {
+      "h1": [
+        "tie",
+        3,
+        "e"
+      ],
+      "h2": [
+        "tie",
+        3,
+        "f"
+      ],
+      "color": "#808080"
+    },
+    {
+      "h1": [
+        "tie",
+        9,
+        "g"
+      ],
+      "h2": [
+        "tie",
+        10,
+        "d"
+      ],
+      "color": "#e8c020"
+    },
+    {
+      "h1": [
+        "tie",
+        3,
+        "h"
+      ],
+      "h2": [
+        "tie",
+        9,
+        "h"
+      ],
+      "color": "#991111"
+    },
+    {
+      "h1": [
+        "rail",
+        "top_plus",
+        14
+      ],
+      "h2": [
+        "rail",
+        "bot_plus",
+        14
+      ],
+      "color": "#1133aa"
+    },
+    {
+      "h1": [
+        "rail",
+        "top_minus",
+        15
+      ],
+      "h2": [
+        "rail",
+        "bot_minus",
+        15
+      ],
+      "color": "#20c040"
+    },
+    {
+      "h1": [
+        "rail",
+        "top_plus",
+        6
+      ],
+      "h2": [
+        "tie",
+        8,
+        "a"
+      ],
+      "color": "#e08020"
+    },
+    {
+      "h1": [
+        "tie",
+        8,
+        "j"
+      ],
+      "h2": [
+        "rail",
+        "bot_minus",
+        6
+      ],
+      "color": "#c020c0"
+    },
+    {
+      "h1": [
+        "tie",
+        11,
+        "j"
+      ],
+      "h2": [
+        "rail",
+        "bot_plus",
+        9
+      ],
+      "color": "#20c0c0"
+    }
+  ],
+  "probes": {
+    "FG+": {
+      "hole": null,
+      "net": "+5V",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "FG_GND": {
+      "hole": null,
+      "net": "GND",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "SCOPE_GND": {
+      "hole": null,
+      "net": "GND",
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "annotations": [
+    {
+      "kind": "rect",
+      "x1": 15.644391408114569,
+      "y1": 108.18973747016707,
+      "x2": 88.10262529832934,
+      "y2": 300.0393794749402,
+      "color": "#33D17A",
+      "width": 6,
+      "fill": true,
+      "fill_color": "#77767B"
+    },
+    {
+      "kind": "line",
+      "x1": 72.4582338902148,
+      "y1": 130.42124105011933,
+      "x2": 136.68257756563244,
+      "y2": 60.43317422434368,
+      "color": "#E01B24",
+      "width": 6
+    },
+    {
+      "kind": "line",
+      "x1": 137.50596658711217,
+      "y1": 41.495226730310264,
+      "x2": 48.5799522673031,
+      "y2": 117.24701670644392,
+      "color": "#000000",
+      "width": 6
+    },
+    {
+      "kind": "line",
+      "x1": 283.2458233890215,
+      "y1": 258.8699284009547,
+      "x2": 71.63484486873509,
+      "y2": 195.46897374701672,
+      "color": "#E5A50A",
+      "width": 6
+    },
+    {
+      "kind": "text",
+      "x": 49.19455055502334,
+      "y": 181.45016733745743,
+      "text": "1+",
+      "color": "#222222",
+      "font_size": 11,
+      "bold": true,
+      "italic": false
+    },
+    {
+      "kind": "text",
+      "x": 66.33422898498623,
+      "y": 134.8576516787212,
+      "text": "V+",
+      "color": "#222222",
+      "font_size": 11,
+      "bold": true,
+      "italic": false
+    },
+    {
+      "kind": "text",
+      "x": 20.33982813498926,
+      "y": 117.26114540271334,
+      "text": "GND",
+      "color": "#222222",
+      "font_size": 11,
+      "bold": true,
+      "italic": false
+    },
+    {
+      "kind": "textbox",
+      "x1": 15.644391408114558,
+      "y1": 297.56921241050117,
+      "x2": 88.10262529832936,
+      "y2": 248.16587112171837,
+      "text": "Analog\nDiscovery",
+      "color": "#333333",
+      "width": 1,
+      "fill": true,
+      "fill_color": "#FFFBE6",
+      "font_size": 10,
+      "bold": true,
+      "italic": true,
+      "text_color": "#222222"
+    }
+  ]
+}

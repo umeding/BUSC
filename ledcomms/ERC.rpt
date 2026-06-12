@@ -1,5 +1,5 @@
-ERC report (2026-05-26T17:38:54, Encoding UTF8)
-Report includes: Warnings, Exclusions
+ERC report (2026-06-11T14:33:13, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
 
 ***** Sheet /
 [multiple_net_names]: Both VCC and Vin are attached to the same items; VCC will be used in the netlist
@@ -12,3 +12,4 @@ Report includes: Warnings, Exclusions
  ** Ignored checks:
     - Global label only appears once in the schematic
     - Four connection points are joined together
+    - Assigned footprint doesn't match footprint filters
