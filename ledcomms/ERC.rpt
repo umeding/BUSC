@@ -1,13 +1,9 @@
-ERC report (2026-06-11T14:33:13, Encoding UTF8)
+ERC report (2026-06-20T12:33:11, Encoding UTF8)
 Report includes: Errors, Warnings, Exclusions
 
 ***** Sheet /
-[multiple_net_names]: Both VCC and Vin are attached to the same items; VCC will be used in the netlist
-    ; warning
-    @(2800 mils, 5050 mils): Symbol #PWR01 Pin 1 [Power input, Line]
-    @(2800 mils, 5050 mils): Label 'Vin'
 
- ** ERC messages: 1  Errors 0  Warnings 1
+ ** ERC messages: 0  Errors 0  Warnings 0
 
  ** Ignored checks:
     - Global label only appears once in the schematic
