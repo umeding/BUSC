@@ -1,61 +1,115 @@
 /***********************************************************************************************/
-// Summer Challenge Code - VLC Texting using the VLC Transciever shield
+// VLC Texting - Robust Non-Blocking Implementation for Arduino Leonardo
+// Hardware: Arduino Leonardo (TX/RX on Pins 0/1 -> Serial1, USB Serial -> Serial)
 //
-// Instructions:                                
-//   Connect the arduino to the USB Port. 
-//   Go to Tools and ensure that Board is set to Arduino Leonardo. 
-//   Go to Tools and set Port to the port which the Arduino is attached to. 
-//   Click the upload button and wait for the program to upload to the Arduino. 
-//   Open the Serial Monitor in the top right corner (magnifying glass button). 
-//   Wait for your partner to do the same.
-//   Text away!!
+// 2026-10-27 uwe <umeding@bu,edu> 
 /***********************************************************************************************/
-String receivedMessage = "";  // Empty string to hold recieved output
-String outMessage = "";       // Empty string to hold input
 
-/**************************************/
-/*************** SETUP ****************/
-/**************************************/
-void setup(){ 
-  Serial1.begin(9600);  // begin Serial communication with Arduino
-  Serial.begin(9600);   // begin Serial communication with Arduino
-  while(!Serial);       // tells Arduino to do nothing while not communicating over Serial (required for Leonardo)
-  while(!Serial1);      // tells Arduino to do nothing while not communicating over Serial (required for Leonardo)
-} 
+constexpr size_t BUFFER_SIZE = 128;
+constexpr unsigned long RX_TIMEOUT_MS = 250; // Resets buffer if line breaks mid-frame
 
-/**************************************/
-/************* MAIN LOOP **************/
-/**************************************/
+char rxBuffer[BUFFER_SIZE];
+size_t rxIndex = 0;
+unsigned long lastRxTime = 0;
+
+void setup() {
+  Serial.begin(9600);
+  Serial1.begin(9600);
+
+  // Wait for the USB CDC monitor connection
+  while (!Serial) {
+    ; // Leonardo requirement for USB CDC
+  }
+
+  Serial.println(F("--- VLC Optical Transceiver Ready ---"));
+}
+
 void loop() {
-  char inChar;          
-  outMessage = "";                        // Initialize the outgoing message 
-  receivedMessage = "";                   // Initialize the receieved message
-  if (Serial.available() > 0) {
-  
-    while (Serial.available() > 0) {      // check if at least 1 char is available 
-      inChar = Serial.read();             // read any characters typed in the Serial monitor and set inChar equal to them
-      outMessage.concat(inChar);          // add inChar to outMessage
-      delay(1);
+  handleUsbToOptical();
+  handleOpticalToUsb();
+}
+
+// Read from USB Serial Monitor and transmit over optical link (Serial1)
+void handleUsbToOptical() {
+  static char txBuffer[BUFFER_SIZE];
+  static size_t txIndex = 0;
+
+  while (Serial.available() > 0) {
+    char c = Serial.read();
+
+    if (c == '\r') {
+      continue; // Normalize CRLF: drop carriage returns
     }
-   
-    if (outMessage != "") {               // if the message typed is not a blank string
-      outMessage.concat('\n');            // add '\n' to the end of the string
-      Serial.println("Sent:  ");          // say what you sent
-      Serial.println(outMessage);         // Print the message in Serial Monitor 1 
-      Serial1.print(outMessage);          // Send to Arduino 2
+
+    if (c == '\n') {
+      if (txIndex > 0) {
+        txBuffer[txIndex] = '\0';
+        Serial.print(F("Sent: "));
+        Serial.println(txBuffer);
+
+        Serial1.write((const uint8_t*)txBuffer, txIndex);
+        Serial1.write('\n');
+
+        txIndex = 0;
+      }
+    } else {
+      if (txIndex < BUFFER_SIZE - 1) {
+        txBuffer[txIndex++] = c;
+      } else {
+        // Line exceeded buffer capacity; flush frame
+        txBuffer[txIndex] = '\0';
+        Serial.print(F("Sent (Buffer limit reached): "));
+        Serial.println(txBuffer);
+
+        Serial1.write((const uint8_t*)txBuffer, txIndex);
+        Serial1.write('\n');
+
+        txIndex = 0;
+      }
     }
   }
-  
-  if (Serial1.available() > 0) {          // check if something has been sent to TX         
-    char outChar = 0;                     // placeholder character
-    while (outChar != '\n') {             // until a '\n' is read...
-      if (Serial1.available() > 0) {      // ensure that valid characters are sent
-        outChar = Serial1.read();         // if so, set outChar equal to the characters sent
-        receivedMessage.concat(outChar);  // concatonate each character to the received message at the other Arduino
-      }
-      delay(1);
+}
+
+// Non-blocking read from optical receiver (Serial1) and output to USB Serial
+void handleOpticalToUsb() {
+  // Check for line loss mid-message
+  if (rxIndex > 0 && (millis() - lastRxTime > RX_TIMEOUT_MS)) {
+    rxBuffer[rxIndex] = '\0';
+    Serial.print(F("[Framing Error / Link Interrupted]: Partial = "));
+    Serial.println(rxBuffer);
+    rxIndex = 0;
+  }
+
+  while (Serial1.available() > 0) {
+    char c = Serial1.read();
+    lastRxTime = millis();
+
+    // Filter out typical optical noise / low-voltage baseline drifts
+    if (c == '\0' || (uint8_t)c > 127) {
+      continue;
     }
-    Serial.println("Received: ");         // say what you received on the other end
-    Serial.println(receivedMessage);      // print the received message on the other monitor
+
+    if (c == '\r') {
+      continue;
+    }
+
+    if (c == '\n') {
+      if (rxIndex > 0) {
+        rxBuffer[rxIndex] = '\0';
+        Serial.print(F("Received: "));
+        Serial.println(rxBuffer);
+        rxIndex = 0;
+      }
+    } else {
+      if (rxIndex < BUFFER_SIZE - 1) {
+        rxBuffer[rxIndex++] = c;
+      } else {
+        // Buffer saturated without finding newline delimiter
+        rxBuffer[rxIndex] = '\0';
+        Serial.print(F("Received (Overflow): "));
+        Serial.println(rxBuffer);
+        rxIndex = 0;
+      }
+    }
   }
 }
